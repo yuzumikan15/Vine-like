@@ -53,13 +53,11 @@ class VideoWriter: NSObject {
 	func write(sample: CMSampleBufferRef, isVideo: Bool){
 		if CMSampleBufferDataIsReady(sample) != 0 {
 			if fileWriter.status == AVAssetWriterStatus.Unknown {
-				Logger.log("Start writing, isVideo = \(isVideo), status = \(fileWriter.status.rawValue)")
 				let startTime = CMSampleBufferGetPresentationTimeStamp(sample)
 				fileWriter.startWriting()
 				fileWriter.startSessionAtSourceTime(startTime)
 			}
 			if fileWriter.status == AVAssetWriterStatus.Failed {
-				Logger.log("Error occured, isVideo = \(isVideo), status = \(fileWriter.status.rawValue), \(self.fileWriter.error.localizedDescription)")
 				return
 			}
 			if isVideo {

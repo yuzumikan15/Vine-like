@@ -42,15 +42,12 @@ class ViewController: UIViewController {
 		self.restorationIdentifier = "ViewController"
 		
 		self.view.backgroundColor = UIColor.blackColor()
-//		videoHeight = width
-//		videoWidth = width
 		cameraEngine.startup()
 		// setting ProgressBar is the first, then VideoLayer.
 		setupProgressBar()
 		resetProgressBar()
 		setupVideoLayer()
 		setupRecordButton()
-//		setupButtonsOnProgressBar()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -135,7 +132,6 @@ class ViewController: UIViewController {
 	
 	
 	func clickedButton (sender: UIButton) {
-		//        println("clicked")
 		if !cameraEngine.isCapturing { // if not have been started recording
 			onClickStartButton()
 		}
