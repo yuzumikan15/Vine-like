@@ -122,6 +122,36 @@ class CameraEngine : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
 		}
 	}
 	
+	func filePath() -> String {
+		let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+		let documentsDirectory = paths[0] as! String
+		let filePath : String = "\(documentsDirectory)/video\(fileIndex).mp4"
+		let fileURL : NSURL = NSURL(fileURLWithPath: filePath)!
+		return filePath
+	}
+	
+	func filePathUrl() -> NSURL? {
+		return NSURL(fileURLWithPath: filePath())
+	}
+	
+	func ajustTimeStamp(sample: CMSampleBufferRef, offset: CMTime) -> CMSampleBufferRef {
+		var count: CMItemCount = 0
+		CMSampleBufferGetSampleTimingInfoArray(sample, 0, nil, &count);
+		var info = [CMSampleTimingInfo](count: count, repeatedValue: CMSampleTimingInfo(duration: CMTimeMake(0, 0), presentationTimeStamp: CMTimeMake(0, 0), decodeTimeStamp: CMTimeMake(0, 0)))
+		CMSampleBufferGetSampleTimingInfoArray(sample, count, &info, &count);
+		
+		for i in 0..<count {
+			info[i].decodeTimeStamp = CMTimeSubtract(info[i].decodeTimeStamp, offset);
+			info[i].presentationTimeStamp = CMTimeSubtract(info[i].presentationTimeStamp, offset);
+		}
+		
+		var out: Unmanaged<CMSampleBuffer>?
+		CMSampleBufferCreateCopyWithNewTiming(nil, sample, count, &info, &out);
+		return out!.takeRetainedValue()
+	}
+}
+
+extension CameraEngine: AVCaptureVideoDataOutputSampleBufferDelegate {
 	func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!){
 		dispatch_sync(lockQueue) {
 			if !self.isCapturing || self.isPaused {
@@ -164,7 +194,7 @@ class CameraEngine : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
 					}
 					let offset = CMTimeSubtract(pts, self.lastAudioPts!);
 					
-				if (self.timeOffset.value == 0)
+					if (self.timeOffset.value == 0)
 					{
 						self.timeOffset = offset;
 					}
@@ -194,33 +224,5 @@ class CameraEngine : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
 			
 			self.videoWriter?.write(buffer, isVideo: isVideo)
 		}
-	}
-	
-	func filePath() -> String {
-		let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-		let documentsDirectory = paths[0] as! String
-		let filePath : String = "\(documentsDirectory)/video\(fileIndex).mp4"
-		let fileURL : NSURL = NSURL(fileURLWithPath: filePath)!
-		return filePath
-	}
-	
-	func filePathUrl() -> NSURL? {
-		return NSURL(fileURLWithPath: filePath())
-	}
-	
-	func ajustTimeStamp(sample: CMSampleBufferRef, offset: CMTime) -> CMSampleBufferRef {
-		var count: CMItemCount = 0
-		CMSampleBufferGetSampleTimingInfoArray(sample, 0, nil, &count);
-		var info = [CMSampleTimingInfo](count: count, repeatedValue: CMSampleTimingInfo(duration: CMTimeMake(0, 0), presentationTimeStamp: CMTimeMake(0, 0), decodeTimeStamp: CMTimeMake(0, 0)))
-		CMSampleBufferGetSampleTimingInfoArray(sample, count, &info, &count);
-		
-		for i in 0..<count {
-			info[i].decodeTimeStamp = CMTimeSubtract(info[i].decodeTimeStamp, offset);
-			info[i].presentationTimeStamp = CMTimeSubtract(info[i].presentationTimeStamp, offset);
-		}
-		
-		var out: Unmanaged<CMSampleBuffer>?
-		CMSampleBufferCreateCopyWithNewTiming(nil, sample, count, &info, &out);
-		return out!.takeRetainedValue()
 	}
 }

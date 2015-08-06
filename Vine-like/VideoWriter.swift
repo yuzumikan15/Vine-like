@@ -73,7 +73,7 @@ class VideoWriter: NSObject {
 		}
 	}
 	
-	func finish(callback: Void -> Void){
+	func finish(callback: () -> ()){
 		fileWriter.finishWritingWithCompletionHandler(callback)
 	}
 }
