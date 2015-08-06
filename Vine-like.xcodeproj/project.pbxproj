@@ -15,7 +15,6 @@
 		9BB219E11B70AC1B00C341AA /* Vine_likeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB219E01B70AC1B00C341AA /* Vine_likeTests.swift */; };
 		9BB219EB1B70AD7100C341AA /* CameraEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB219EA1B70AD7100C341AA /* CameraEngine.swift */; };
 		9BB219ED1B70ADF200C341AA /* VideoWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB219EC1B70ADF200C341AA /* VideoWriter.swift */; };
-		9BB219EF1B70AE6800C341AA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB219EE1B70AE6800C341AA /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +40,6 @@
 		9BB219E01B70AC1B00C341AA /* Vine_likeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vine_likeTests.swift; sourceTree = "<group>"; };
 		9BB219EA1B70AD7100C341AA /* CameraEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraEngine.swift; sourceTree = "<group>"; };
 		9BB219EC1B70ADF200C341AA /* VideoWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWriter.swift; sourceTree = "<group>"; };
-		9BB219EE1B70AE6800C341AA /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +85,6 @@
 				9BB219CC1B70AC1B00C341AA /* ViewController.swift */,
 				9BB219EA1B70AD7100C341AA /* CameraEngine.swift */,
 				9BB219EC1B70ADF200C341AA /* VideoWriter.swift */,
-				9BB219EE1B70AE6800C341AA /* Logger.swift */,
 				9BB219CE1B70AC1B00C341AA /* Main.storyboard */,
 				9BB219D11B70AC1B00C341AA /* Images.xcassets */,
 				9BB219D31B70AC1B00C341AA /* LaunchScreen.xib */,
@@ -221,7 +218,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BB219EF1B70AE6800C341AA /* Logger.swift in Sources */,
 				9BB219ED1B70ADF200C341AA /* VideoWriter.swift in Sources */,
 				9BB219CD1B70AC1B00C341AA /* ViewController.swift in Sources */,
 				9BB219CB1B70AC1B00C341AA /* AppDelegate.swift in Sources */,
